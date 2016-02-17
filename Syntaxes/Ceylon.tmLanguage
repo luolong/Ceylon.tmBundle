@@ -42,8 +42,63 @@
 					<dict>
 						<key>1</key>
 						<dict>
-							<key>name</key>
-							<string>storage.modifier.ceylon</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>match</key>
+									<string>abstract</string>
+									<key>name</key>
+									<string>storage.modifier.abstract.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>actual</string>
+									<key>name</key>
+									<string>storage.modifier.actual.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>default</string>
+									<key>name</key>
+									<string>storage.modifier.default.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>formal</string>
+									<key>name</key>
+									<string>storage.modifier.formal.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>final</string>
+									<key>name</key>
+									<string>storage.modifier.final.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>late</string>
+									<key>name</key>
+									<string>storage.modifier.formal.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>sealed</string>
+									<key>name</key>
+									<string>storage.modifier.sealed.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>shared</string>
+									<key>name</key>
+									<string>storage.modifier.shared.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>\w+</string>
+									<key>name</key>
+									<string>storage.modifier.ceylon</string>
+								</dict>
+							</array>
 						</dict>
 					</dict>
 					<key>contentName</key>
@@ -51,7 +106,7 @@
 					<key>match</key>
 					<string>\b(abstract|actual|annotation|default|formal|final|late|optional|sealed|shared|variable)\s+</string>
 					<key>name</key>
-					<string>meta.declaration.annotation.ceylon</string>
+					<string>meta.declaration.annotation.language.ceylon</string>
 				</dict>
 				<dict>
 					<key>begin</key>
@@ -82,45 +137,7 @@
 						</dict>
 					</dict>
 					<key>name</key>
-					<string>meta.declaration.annotation.ceylon</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#strings</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>\b(by)\s*(\()</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>storage.modifier.ceylon</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.annotation-arguments.begin.ceylon</string>
-						</dict>
-					</dict>
-					<key>contentName</key>
-					<string>storage.type.annotation.ceylon</string>
-					<key>end</key>
-					<string>(\))</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.annotation-arguments.end.ceylon</string>
-						</dict>
-					</dict>
-					<key>name</key>
-					<string>meta.declaration.annotation.by.ceylon</string>
+					<string>meta.declaration.annotation.language.ceylon</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -156,7 +173,7 @@
 						</dict>
 					</dict>
 					<key>name</key>
-					<string>meta.declaration.annotation.ceylon</string>
+					<string>meta.declaration.annotation.language.ceylon</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -422,7 +439,7 @@
 											<key>match</key>
 											<string>\b([:lower:]|\\i)(?=\w*)</string>
 											<key>name</key>
-											<string>invalid.illegal.character_not_allowed_here.ceylon</string>
+											<string>invalid.illegal.lowercase_character_not_allowed_here.ceylon</string>
 										</dict>
 									</array>
 								</dict>
