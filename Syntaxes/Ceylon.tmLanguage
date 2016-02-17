@@ -427,12 +427,12 @@
 								<key>1</key>
 								<dict>
 									<key>name</key>
-									<string>storage.modifier.ceylon</string>
+									<string>keyword.other.interface.ceylon</string>
 								</dict>
 								<key>2</key>
 								<dict>
 									<key>name</key>
-									<string>entity.name.type.class.ceylon</string>
+									<string>entity.name.type.interface.ceylon</string>
 									<key>patterns</key>
 									<array>
 										<dict>
@@ -444,31 +444,46 @@
 									</array>
 								</dict>
 							</dict>
+							<key>end</key>
+							<string>(?=\{|of|extends|satisfies|given)</string>
 							<key>name</key>
-							<string>meta.class.identifier.ceylon</string>
+							<string>meta.definition.interface.identifier.ceylon</string>
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>\b(of)\s+(?=\w+(?:\s*\|\s*\w+))</string>
+							<string>\b(of)\s+</string>
 							<key>beginCaptures</key>
 							<dict>
 								<key>1</key>
 								<dict>
 									<key>name</key>
-									<string>storage.modifier.of.ceylon</string>
+									<string>keyword.other.of.ceylon</string>
 								</dict>
 							</dict>
 							<key>end</key>
-							<string>(?={|extends|satisfies|given)</string>
+							<string>(?=\{|extends|satisfies|given)</string>
 							<key>name</key>
-							<string>meta.definition.class.cases.ceylon</string>
+							<string>meta.definition.case.enumeration.ceylon</string>
 							<key>patterns</key>
 							<array>
 								<dict>
+									<key>captures</key>
+									<dict>
+										<key>1</key>
+										<dict>
+											<key>name</key>
+											<string>constant.character.escape.initial-uppercase.ceylon</string>
+										</dict>
+										<key>2</key>
+										<dict>
+											<key>name</key>
+											<string>entity.other.case-class.ceylon</string>
+										</dict>
+									</dict>
 									<key>match</key>
-									<string>\|{1}</string>
+									<string>(\\I)([\w_]+)\s*</string>
 									<key>name</key>
-									<string>keyword.operator.type.union.ceylon</string>
+									<string>meta.other.case-class.ceylon</string>
 								</dict>
 								<dict>
 									<key>captures</key>
@@ -476,31 +491,76 @@
 										<key>1</key>
 										<dict>
 											<key>name</key>
-											<string>entity.name.type.class.ceylon</string>
+											<string>entity.other.case-class.ceylon</string>
 										</dict>
 									</dict>
 									<key>match</key>
-									<string>\b(\w+)\b</string>
+									<string>\b([[:upper:]][\w_]*)\s*</string>
 									<key>name</key>
-									<string>meta.other.type.case.ceylon</string>
+									<string>meta.other.case-class.ceylon</string>
+								</dict>
+								<dict>
+									<key>captures</key>
+									<dict>
+										<key>1</key>
+										<dict>
+											<key>name</key>
+											<string>constant.character.escape.initial-lowercase.ceylon</string>
+										</dict>
+										<key>2</key>
+										<dict>
+											<key>name</key>
+											<string>entity.other.case-value.ceylon</string>
+										</dict>
+									</dict>
+									<key>match</key>
+									<string>(\\i)([\w_]+)\s*</string>
+									<key>name</key>
+									<string>meta.other.case-value.ceylon</string>
+								</dict>
+								<dict>
+									<key>captures</key>
+									<dict>
+										<key>1</key>
+										<dict>
+											<key>name</key>
+											<string>entity.other.case-value.ceylon</string>
+										</dict>
+									</dict>
+									<key>match</key>
+									<string>\b([[:lower:]][\w_]*)\s*</string>
+									<key>name</key>
+									<string>meta.other.case-value.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>\|{1}(?=\s*[\\\w_])</string>
+									<key>name</key>
+									<string>keyword.operator.type.union.ceylon</string>
+								</dict>
+								<dict>
+									<key>match</key>
+									<string>[^\s]</string>
+									<key>name</key>
+									<string>invalid.illegal.character_not_allowed.ceylon</string>
 								</dict>
 							</array>
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>\b(satisfies)\b</string>
+							<string>\b(satisfies)\s+</string>
 							<key>beginCaptures</key>
 							<dict>
 								<key>1</key>
 								<dict>
 									<key>name</key>
-									<string>storage.modifier.satisfies.ceylon</string>
+									<string>keyword.other.satisfies.ceylon</string>
 								</dict>
 							</dict>
 							<key>end</key>
-							<string>(?:{|given)</string>
+							<string>(?:\{|given)</string>
 							<key>name</key>
-							<string>meta.definition.class.satisfies.ceylon</string>
+							<string>meta.definition.interface.satisfies.ceylon</string>
 							<key>patterns</key>
 							<array>
 								<dict>
@@ -547,6 +607,24 @@
 					</array>
 				</dict>
 			</array>
+			<key>repository</key>
+			<dict>
+				<key>keyword-given</key>
+				<dict>
+					<key>patterns</key>
+					<array/>
+				</dict>
+				<key>keyword-of</key>
+				<dict>
+					<key>patterns</key>
+					<array/>
+				</dict>
+				<key>keyword-satisfies</key>
+				<dict>
+					<key>patterns</key>
+					<array/>
+				</dict>
+			</dict>
 		</dict>
 		<key>module</key>
 		<dict>
@@ -765,6 +843,18 @@
 					</array>
 				</dict>
 			</dict>
+		</dict>
+		<key>type-name</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>pattern</string>
+					<key>name</key>
+					<string>(\\I)</string>
+				</dict>
+			</array>
 		</dict>
 	</dict>
 	<key>scopeName</key>
