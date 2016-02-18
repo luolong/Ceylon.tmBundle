@@ -394,7 +394,7 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>^\b(import)\s+</string>
+					<string>^\b(import)\s+([^\s{;.]+(?:\.[^\s{;.]+)+)+\s*(\{)</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
@@ -402,90 +402,165 @@
 							<key>name</key>
 							<string>keyword.control.import.ceylon</string>
 						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>variable.other.package.ceylon</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>meta.bracket.ceylon</string>
+						</dict>
 					</dict>
+					<key>contentName</key>
+					<string>meta.import.selector.ceylon</string>
 					<key>end</key>
-					<string>(?&lt;=[\n;])</string>
+					<string>(\})</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>meta.bracket.ceylon</string>
+						</dict>
+					</dict>
 					<key>name</key>
 					<string>meta.import.ceylon</string>
 					<key>patterns</key>
 					<array>
 						<dict>
 							<key>include</key>
-							<string>#comments</string>
+							<string>#nested-import-element</string>
 						</dict>
 						<dict>
-							<key>match</key>
-							<string>([^\s{;.]+)\s*</string>
-							<key>name</key>
-							<string>variable.other.package.ceylon</string>
+							<key>include</key>
+							<string>#import-element</string>
 						</dict>
+						<dict>
+							<key>include</key>
+							<string>#import-wildcard</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>repository</key>
+			<dict>
+				<key>import-element</key>
+				<dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>meta.import.alias.ceylon</string>
+								</dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>variable.other.import.alias.ceylon</string>
+								</dict>
+								<key>3</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.operator.assignment.ceylon</string>
+								</dict>
+								<key>4</key>
+								<dict>
+									<key>name</key>
+									<string>constant.character.escape.case-modifier.ceylon</string>
+								</dict>
+								<key>5</key>
+								<dict>
+									<key>name</key>
+									<string>variable.other.import.ceylon</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>\s*(([[:word:]]+)\s*(=+)\s*)?(\\[iI])?([[:word:]]+)\s*</string>
+							<key>name</key>
+							<string>meta.import.element.ceylon</string>
+						</dict>
+					</array>
+				</dict>
+				<key>import-wildcard</key>
+				<dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>contentName</key>
+							<string>keyword.operator.import.wildcard.ceylon</string>
+							<key>match</key>
+							<string>\.{3}</string>
+							<key>name</key>
+							<string>meta.import.element</string>
+						</dict>
+					</array>
+				</dict>
+				<key>nested-import-element</key>
+				<dict>
+					<key>patterns</key>
+					<array>
 						<dict>
 							<key>begin</key>
-							<string>{</string>
+							<string>\s*(([[:word:]]+)\s*(=+)\s*)?(\\[iI])?([[:word:]]+)\s*(\{)</string>
 							<key>beginCaptures</key>
 							<dict>
-								<key>0</key>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>meta.import.alias.ceylon</string>
+								</dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>variable.other.import.alias.ceylon</string>
+								</dict>
+								<key>3</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.operator.assignment.ceylon</string>
+								</dict>
+								<key>4</key>
+								<dict>
+									<key>name</key>
+									<string>constant.character.escape.case-modifier.ceylon</string>
+								</dict>
+								<key>5</key>
+								<dict>
+									<key>name</key>
+									<string>variable.other.import.ceylon</string>
+								</dict>
+								<key>6</key>
 								<dict>
 									<key>name</key>
 									<string>meta.bracket.ceylon</string>
 								</dict>
 							</dict>
 							<key>end</key>
-							<string>}</string>
-							<key>endCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>meta.bracket.ceylon</string>
-								</dict>
-							</dict>
-							<key>name</key>
-							<string>meta.import.selector.ceylon</string>
+							<string>(\})</string>
 							<key>patterns</key>
 							<array>
 								<dict>
-									<key>captures</key>
-									<dict>
-										<key>1</key>
-										<dict>
-											<key>name</key>
-											<string>variable.other.import.alias.ceylon</string>
-										</dict>
-										<key>2</key>
-										<dict>
-											<key>name</key>
-											<string>keyword.operator.ceylon</string>
-										</dict>
-										<key>3</key>
-										<dict>
-											<key>name</key>
-											<string>variable.other.import.ceylon</string>
-										</dict>
-									</dict>
-									<key>match</key>
-									<string>(?x) \s*
-									([^\s.,}]+) \s*
-									(=) \s*
-									([^\s.,}]+) \s</string>
+									<key>include</key>
+									<string>#nested-import-element</string>
 								</dict>
 								<dict>
-									<key>match</key>
-									<string>([^\s.,}]+)</string>
-									<key>name</key>
-									<string>variable.other.import.ceylon</string>
+									<key>include</key>
+									<string>#import-element</string>
 								</dict>
 								<dict>
-									<key>match</key>
-									<string>\.\.\.</string>
-									<key>name</key>
-									<string>keyword.operator.import.wildcard.ceylon</string>
+									<key>include</key>
+									<string>#import-wildcard</string>
 								</dict>
 							</array>
 						</dict>
 					</array>
 				</dict>
-			</array>
+			</dict>
 		</dict>
 		<key>interfaces</key>
 		<dict>
