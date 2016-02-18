@@ -42,6 +42,8 @@
 					<dict>
 						<key>1</key>
 						<dict>
+							<key>name</key>
+							<string>support.function.annotation.ceylon</string>
 							<key>patterns</key>
 							<array>
 								<dict>
@@ -92,17 +94,9 @@
 									<key>name</key>
 									<string>storage.modifier.shared.ceylon</string>
 								</dict>
-								<dict>
-									<key>match</key>
-									<string>\w+</string>
-									<key>name</key>
-									<string>storage.modifier.ceylon</string>
-								</dict>
 							</array>
 						</dict>
 					</dict>
-					<key>contentName</key>
-					<string>storage.type.annotation.ceylon</string>
 					<key>match</key>
 					<string>\b(abstract|actual|annotation|default|formal|final|late|optional|sealed|shared|variable)\s+</string>
 					<key>name</key>
@@ -116,7 +110,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>storage.modifier.ceylon</string>
+							<string>support.function.annotation.ceylon</string>
 						</dict>
 						<key>2</key>
 						<dict>
@@ -154,7 +148,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>storage.type.annotation.ceylon</string>
+							<string>support.function.annotation.ceylon</string>
 						</dict>
 						<key>2</key>
 						<dict>
@@ -190,7 +184,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>storage.type.annotation.ceylon</string>
+							<string>support.function.annotation.ceylon</string>
 						</dict>
 						<key>2</key>
 						<dict>
@@ -213,72 +207,12 @@
 					<key>patterns</key>
 					<array>
 						<dict>
-							<key>begin</key>
-							<string>`</string>
-							<key>beginCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.string.begin.ceylon</string>
-								</dict>
-							</dict>
-							<key>end</key>
-							<string>`</string>
-							<key>endCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.string.end.ceylon</string>
-								</dict>
-							</dict>
-							<key>name</key>
-							<string>string.quoted.other.metamodel.reference.ceylon</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>captures</key>
-									<dict>
-										<key>1</key>
-										<dict>
-											<key>name</key>
-											<string>keyword.control.interface.ceylon</string>
-										</dict>
-										<key>2</key>
-										<dict>
-											<key>patterns</key>
-											<array>
-												<dict>
-													<key>match</key>
-													<string>[[:upper:]][[:word:]]*</string>
-													<key>name</key>
-													<string>storage.type.class.ceylon</string>
-												</dict>
-												<dict>
-													<key>match</key>
-													<string>\\I[[:word:]]+</string>
-													<key>name</key>
-													<string>storage.type.class.ceylon</string>
-												</dict>
-												<dict>
-													<key>match</key>
-													<string>[[:graph:]]</string>
-													<key>name</key>
-													<string>invalid.illegal.character.ceylon</string>
-												</dict>
-											</array>
-										</dict>
-									</dict>
-									<key>match</key>
-									<string>\b(interface|class)\b\s+([[:graph:]]+?)\s*(?=\`)</string>
-									<key>name</key>
-									<string>meta.other.type.reference.ceylon</string>
-								</dict>
-							</array>
+							<key>include</key>
+							<string>#strings</string>
 						</dict>
 					</array>
 				</dict>
+				<dict/>
 			</array>
 			<key>repository</key>
 			<dict>
@@ -385,6 +319,165 @@
 							<string>punctuation.definition.comment.ceylon</string>
 						</dict>
 					</dict>
+				</dict>
+			</array>
+		</dict>
+		<key>constants-and-special-vars</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\b(true|false|null|nothing)\b</string>
+					<key>name</key>
+					<string>constant.language.ceylon</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b(this|super|outer)\b</string>
+					<key>name</key>
+					<string>variable.language.ceylon</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;!\w)\$([01]+|[01]{1,4}(_[01]{4})+)(?!\w|\.)</string>
+					<key>name</key>
+					<string>constant.numeric.bin.ceylon</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;!\w)\#(\h+|\h{1,4}(_\h{4})+|\h{1,2}(_\h{2})+)(?!\w|\.)</string>
+					<key>name</key>
+					<string>constant.numeric.hex.ceylon</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b([0-9]{1,3}(_[0-9]{3})+|[0-9]+)[kMGTP]?(?!\w|\.)</string>
+					<key>name</key>
+					<string>constant.numeric.integer.ceylon</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?x)
+					(?&gt;
+						(	([0-9]{1,3}(_[0-9]{3})+|[0-9]+)			# Leading digits
+							(?=[eEkMGTPmunpf.])						# Allow for numbers without .
+						)?
+						(	(?&lt;=[0-9])(?=[eEkMGTPmunpf])			# Allow for numbers without .
+						  | \.
+						)
+						(	(([0-9]{3}_)+[0-9]{1,3}|[0-9]+)			# Numbers after .
+						)?
+						(	[eE][+-]?[0-9]+							# Exponent
+						  | [kMGTP]                                 # Magnitude
+						  | [munpf]                                 # Fractional magnitude
+						)?
+					)
+					(?!\w)											# Ensure word boundry
+					</string>
+					<key>name</key>
+					<string>constant.numeric.float.ceylon</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>'[^\\']'</string>
+					<key>name</key>
+					<string>constant.character.literal.ceylon</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>constant.character.escape.ceylon</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>'(\\[btnfre\\"'`0])'</string>
+					<key>name</key>
+					<string>constant.character.literal.ceylon</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.character.begin.ceylon</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>constant.character.escape.ceylon</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.character.end.ceylon</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(')(\\[btnfre\\"'`0])(')</string>
+					<key>name</key>
+					<string>constant.character.literal.ceylon</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>'(?=\\\{)</string>
+					<key>end</key>
+					<string>'</string>
+					<key>name</key>
+					<string>constant.character.literal.ceylon</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>\\\{#\h{2,6}\}</string>
+							<key>name</key>
+							<string>constant.character.escape.unicode.code.ceylon</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>\\\{(?:[A-Z](?:[A-Z0-9\-]*?[A-Z0-9])?)(?: (?:[A-Z](?:[A-Z0-9\-]*?[A-Z0-9])?))*\}</string>
+							<key>name</key>
+							<string>constant.character.escape.unicode.name.ceylon</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>\\\{.*}?(?=')</string>
+							<key>name</key>
+							<string>invalid.illegal.character.escape.ceylon</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>invalid.illagal.character.literal</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>'(.{2,})'</string>
+					<key>name</key>
+					<string>constant.character.literal.ceylon</string>
+				</dict>
+			</array>
+		</dict>
+		<key>expression</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#strings</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#constants-and-special-vars</string>
 				</dict>
 			</array>
 		</dict>
@@ -935,6 +1028,30 @@
 			<array>
 				<dict>
 					<key>begin</key>
+					<string>"""</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.ceylon</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>"""</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.ceylon</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>string.quoted.triple</string>
+				</dict>
+				<dict>
+					<key>begin</key>
 					<string>"</string>
 					<key>beginCaptures</key>
 					<dict>
@@ -961,6 +1078,10 @@
 						<dict>
 							<key>include</key>
 							<string>#character-escapes</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#string-interpolation</string>
 						</dict>
 					</array>
 				</dict>
@@ -1035,6 +1156,43 @@
 							<string>\\.</string>
 							<key>name</key>
 							<string>invalid.illegal.unknown-escape.ceylon</string>
+						</dict>
+					</array>
+				</dict>
+				<key>string-interpolation</key>
+				<dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>begin</key>
+							<string>``</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.string-interpolation.begin.ceylon</string>
+								</dict>
+							</dict>
+							<key>end</key>
+							<string>``</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.string-interpolation.end.ceylon</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>string.interpolated.ceylon</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#expression</string>
+								</dict>
+							</array>
 						</dict>
 					</array>
 				</dict>
