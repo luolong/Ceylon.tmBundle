@@ -154,7 +154,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>storage.modifier.ceylon</string>
+							<string>storage.type.annotation.ceylon</string>
 						</dict>
 						<key>2</key>
 						<dict>
@@ -179,6 +179,103 @@
 						<dict>
 							<key>include</key>
 							<string>#ceylondoc</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\b(see|throws)\s*(\()</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>storage.type.annotation.ceylon</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.annotation-arguments.begin.ceylon</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.annotation-arguments.end.ceylon</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.declaration.annotation.language.ceylon</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>begin</key>
+							<string>`</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.string.begin.ceylon</string>
+								</dict>
+							</dict>
+							<key>end</key>
+							<string>`</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.string.end.ceylon</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>string.quoted.other.metamodel.reference.ceylon</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>captures</key>
+									<dict>
+										<key>1</key>
+										<dict>
+											<key>name</key>
+											<string>keyword.control.interface.ceylon</string>
+										</dict>
+										<key>2</key>
+										<dict>
+											<key>patterns</key>
+											<array>
+												<dict>
+													<key>match</key>
+													<string>[[:upper:]][[:word:]]*</string>
+													<key>name</key>
+													<string>storage.type.class.ceylon</string>
+												</dict>
+												<dict>
+													<key>match</key>
+													<string>\\I[[:word:]]+</string>
+													<key>name</key>
+													<string>storage.type.class.ceylon</string>
+												</dict>
+												<dict>
+													<key>match</key>
+													<string>[[:graph:]]</string>
+													<key>name</key>
+													<string>invalid.illegal.character.ceylon</string>
+												</dict>
+											</array>
+										</dict>
+									</dict>
+									<key>match</key>
+									<string>\b(interface|class)\b\s+([[:graph:]]+?)\s*(?=\`)</string>
+									<key>name</key>
+									<string>meta.other.type.reference.ceylon</string>
+								</dict>
+							</array>
 						</dict>
 					</array>
 				</dict>
@@ -792,6 +889,30 @@
 						</dict>
 					</array>
 				</dict>
+				<dict>
+					<key>begin</key>
+					<string>`</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.ceylon</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>`</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.ceylon</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>string.quoted.other.metamodel.reference.ceylon</string>
+				</dict>
 			</array>
 			<key>repository</key>
 			<dict>
@@ -845,17 +966,7 @@
 			</dict>
 		</dict>
 		<key>type-name</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>pattern</string>
-					<key>name</key>
-					<string>(\\I)</string>
-				</dict>
-			</array>
-		</dict>
+		<dict/>
 	</dict>
 	<key>scopeName</key>
 	<string>source.ceylon</string>
