@@ -1,2 +1,2 @@
 # Ceylon.tmBundle
-Ceylon language bundle for TextMate 2
+Ceylon language syntax highlighting for TextMate 2
